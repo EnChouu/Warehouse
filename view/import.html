@@ -1,0 +1,45 @@
+<html><head><title>INDEX</title></head><body>
+        <center>
+         <h1>SEND DATA TO SERVER</h1>
+         <form method="POST" action="/">
+            <button name="button" onclick="SEND()" value="1">1</button>
+            <button name="button" onclick="SEND()" value="2">2</button>
+            <button name="button" onclick="SEND()" value="3">3</button>
+            <button name="button" onclick="SEND()" value="4">4</button>
+            <button name="button" onclick="SEND()" value="5">5</button>
+            <button name="button" onclick="SEND()" value="6">6</button>
+            <button name="button" onclick="SEND()" value="7">7</button>
+            <button name="button" onclick="SEND()" value="8">8</button>
+            <button name="button" onclick="SEND()" value="9">9</button>
+            <button name="button" onclick="SEND()" value="99">Turn leds OFF</button>
+            <input type="text" name="name">
+            <button type="submit">send</button>
+         </form>
+        </center>
+        <script>
+        function SEND(){
+            var newXHR = new XMLHttpRequest();
+            newXHR.addEventListener("load",RequestDone);
+            newXHR.open("POST","/import");
+            newXHR.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+            //Data for 
+            console.log(this.value);
+        }
+        function RequestDone(req){
+          var res = JSON.parse(req.target.response); 
+          console.log(res);
+          if(res.status=="OK"){
+            alert("Succesfully Sent & Retrieved Data :\n"+res.data.toString());
+          }
+          else if(res.status=="ERROR")
+          {
+            alert("The server received unexpected data or is missing important parameters")
+          }
+          else
+          {
+            alert("Unexcpected Error!")
+          }
+        }
+        </script>
+       </body>
+       </html>
